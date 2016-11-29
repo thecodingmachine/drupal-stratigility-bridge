@@ -1,0 +1,20 @@
+services:
+  drupal_array_render_caller:
+    class:      Drupal\stratigility_bridge\DrupalArrayRenderCaller
+    arguments:  ['@event_dispatcher', '@request_stack', '@http_kernel.basic', '@html_response_stack']
+
+  html_response_stack:
+    class:      Drupal\stratigility_bridge\HtmlResponseStack
+
+  stratigility_pipe:
+    class:     Zend\Stratigility\MiddlewarePipe
+    calls:
+     - [raiseThrowables, []]
+    tags:
+     - { name: service_collector, tag: http_interop_middleware, call: pipe }
+
+  request_handler:
+    class:     Drupal\stratigility_bridge\RequestHandler
+    arguments: ['@stratigility_pipe', '@html_response_stack']
+    tags:
+     - { name: event_subscriber }

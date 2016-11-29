@@ -1,0 +1,5 @@
+name: Stratigility Bridge
+type: module
+description: "Allows adding http-interop (PSR-15) middlewares to Drupal 8 through Stratigility integration"
+package: TheCodingMachine
+core: 8.x

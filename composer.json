@@ -1,0 +1,20 @@
+{
+  "name": "thecodingmachine/drupal-stratigility-bridge",
+  "description": "This Drupal 8 module provides a bridge to include PSR-15 middlewares through Stratigility.",
+  "type": "drupal-module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "David Négrier",
+      "email": "d.negrier@thecodingmachine.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "thecodingmachine/symfony-httpinterop-bridge": "^0.3.0",
+    "zendframework/zend-stratigility": "^1.3.2"
+  },
+  "extra": {
+    "installer-name": "stratigility_bridge"
+  }
+}
