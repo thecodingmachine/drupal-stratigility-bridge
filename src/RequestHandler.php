@@ -53,7 +53,7 @@ class RequestHandler implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        $events[KernelEvents::REQUEST][] = array('handleRequest', 1);
+        $events[KernelEvents::REQUEST][] = array('handleRequest', 33);
         return $events;
     }
 
@@ -72,20 +72,17 @@ class RequestHandler implements EventSubscriberInterface
             }
         });
 
-        if ($psr7Response->getStatusCode() === 418) {
-            $body = (string)$psr7Response->getBody();
-            if ($body === 'bypass') {
+        $body = (string)$psr7Response->getBody();
+        if ($body === 'bypass' && $psr7Response->getStatusCode() === 418) {
+            return;
+        } elseif ($body === 'template') {
+            if (!$this->responseStack->isEmpty()) {
+                $response = $this->responseStack->pop();
+                $event->setResponse($response);
                 return;
-            } elseif ($body === 'template') {
-                if (!$this->responseStack->isEmpty()) {
-                    $response = $this->responseStack->pop();
-                    $event->setResponse($response);
-                    return;
-                } else {
-                    throw new \LogicException('Response stack is empty. Expecting a response there.');
-                }
+            } else {
+                throw new \LogicException('Response stack is empty. Expecting a response there.');
             }
-
         }
 
         $response = $this->httpFoundationFactory->createResponse($psr7Response);
