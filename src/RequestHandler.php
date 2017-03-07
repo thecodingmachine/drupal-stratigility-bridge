@@ -4,8 +4,8 @@
 namespace Drupal\stratigility_bridge;
 
 
-use Interop\Http\Middleware\DelegateInterface;
-use Interop\Http\Middleware\ServerMiddlewareInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
@@ -24,7 +24,7 @@ class RequestHandler implements EventSubscriberInterface
     const SYMFONY_REQUEST = 'TheCodingMachine\\HttpInteropBridge\\SYMFONY_REQUEST';
 
     /**
-     * @var ServerMiddlewareInterface
+     * @var MiddlewareInterface
      */
     private $httpInteropMiddleware;
     /**
@@ -40,7 +40,7 @@ class RequestHandler implements EventSubscriberInterface
      */
     private $httpMessageFactory;
 
-    public function __construct(ServerMiddlewareInterface $httpInteropMiddleware, HtmlResponseStack $responseStack = null, HttpFoundationFactoryInterface $httpFoundationFactory = null, HttpMessageFactoryInterface $httpMessageFactory = null)
+    public function __construct(MiddlewareInterface $httpInteropMiddleware, HtmlResponseStack $responseStack = null, HttpFoundationFactoryInterface $httpFoundationFactory = null, HttpMessageFactoryInterface $httpMessageFactory = null)
     {
         $this->httpInteropMiddleware = $httpInteropMiddleware;
         $this->responseStack = $responseStack;
