@@ -6,7 +6,7 @@ namespace Drupal\stratigility_bridge;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
@@ -66,7 +66,7 @@ class RequestHandler implements EventSubscriberInterface
         $psr7Request = $psr7Request->withAttribute(self::SYMFONY_REQUEST, $request);
 
         $psr7Response = $this->httpInteropMiddleware->process($psr7Request, new class implements DelegateInterface {
-            public function process(RequestInterface $request)
+            public function process(ServerRequestInterface $request)
             {
                 return new TextResponse("bypass", 418);
             }
