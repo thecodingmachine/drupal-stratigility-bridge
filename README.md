@@ -7,9 +7,9 @@ Bridges between [Drupal 8](https://www.drupal.org/8) and PSR-15 middleware modul
 [![Total Downloads](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/downloads)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
 [![Latest Unstable Version](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/v/unstable)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
 [![License](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/license)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/badges/quality-score.png?b=0.3)](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/?branch=0.3)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/badges/quality-score.png?b=0.4)](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/?branch=0.4)
 
-> This bridge is currently based on http-interop v0.3. As this is not yet approved by PHP-FIG, this might be subject to change!
+> This bridge is currently based on http-interop v0.4. As this is not yet approved by PHP-FIG, this might be subject to change!
 
 ## Installation
 
@@ -48,7 +48,7 @@ To do so, simply inject the `drupal_array_render_caller` service in your control
 Below is a sample middleware that returns a "Hello world!" Drupal page when the "/foo" page is hit:
 
 ```php
-class HelloWorldMiddleware implements ServerMiddlewareInterface
+class HelloWorldMiddleware implements MiddlewareInterface
 {
     /**
      * @var DrupalArrayRenderCaller

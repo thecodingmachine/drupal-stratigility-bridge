@@ -11,8 +11,8 @@
   ],
   "require": {
     "php": ">=7.0",
-    "thecodingmachine/symfony-httpinterop-bridge": "^0.3.0",
-    "zendframework/zend-stratigility": "^1.3.2"
+    "thecodingmachine/symfony-httpinterop-bridge": "^0.4",
+    "zendframework/zend-stratigility": "^2.0"
   },
   "extra": {
     "installer-name": "stratigility_bridge"
