@@ -4,8 +4,8 @@
 namespace Drupal\stratigility_bridge;
 
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
@@ -21,12 +21,12 @@ use Zend\Diactoros\Response\TextResponse;
  */
 class RequestHandler implements EventSubscriberInterface
 {
-    const SYMFONY_REQUEST = 'TheCodingMachine\\HttpInteropBridge\\SYMFONY_REQUEST';
+    const SYMFONY_REQUEST = 'TheCodingMachine\\Psr15Bridge\\SYMFONY_REQUEST';
 
     /**
      * @var MiddlewareInterface
      */
-    private $httpInteropMiddleware;
+    private $httpMiddleware;
     /**
      * @var HtmlResponseStack
      */
@@ -40,9 +40,9 @@ class RequestHandler implements EventSubscriberInterface
      */
     private $httpMessageFactory;
 
-    public function __construct(MiddlewareInterface $httpInteropMiddleware, HtmlResponseStack $responseStack = null, HttpFoundationFactoryInterface $httpFoundationFactory = null, HttpMessageFactoryInterface $httpMessageFactory = null)
+    public function __construct(MiddlewareInterface $httpMiddleware, HtmlResponseStack $responseStack = null, HttpFoundationFactoryInterface $httpFoundationFactory = null, HttpMessageFactoryInterface $httpMessageFactory = null)
     {
-        $this->httpInteropMiddleware = $httpInteropMiddleware;
+        $this->httpMiddleware = $httpMiddleware;
         $this->responseStack = $responseStack;
         $this->httpFoundationFactory = $httpFoundationFactory ?: new HttpFoundationFactory();
         $this->httpMessageFactory = $httpMessageFactory ?: new DiactorosFactory();
@@ -65,8 +65,8 @@ class RequestHandler implements EventSubscriberInterface
 
         $psr7Request = $psr7Request->withAttribute(self::SYMFONY_REQUEST, $request);
 
-        $psr7Response = $this->httpInteropMiddleware->process($psr7Request, new class implements DelegateInterface {
-            public function process(ServerRequestInterface $request)
+        $psr7Response = $this->httpMiddleware->process($psr7Request, new class implements RequestHandlerInterface {
+            public function handle(ServerRequestInterface $request)
             {
                 return new TextResponse("bypass", 418);
             }

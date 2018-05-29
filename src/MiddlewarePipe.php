@@ -3,7 +3,7 @@
 
 namespace Drupal\stratigility_bridge;
 
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface;;
 
 /**
  * This wrapper class is needed because of https://www.drupal.org/node/2831831

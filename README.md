@@ -9,7 +9,7 @@ Bridges between [Drupal 8](https://www.drupal.org/8) and PSR-15 middleware modul
 [![License](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/license)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/badges/quality-score.png?b=0.4)](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/?branch=0.4)
 
-> This bridge is currently based on http-interop v0.4. As this is not yet approved by PHP-FIG, this might be subject to change!
+> This bridge is currently based on psr15.
 
 ## Installation
 
