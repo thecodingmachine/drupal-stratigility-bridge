@@ -4,6 +4,7 @@
 namespace Drupal\stratigility_bridge;
 
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -66,7 +67,7 @@ class RequestHandler implements EventSubscriberInterface
         $psr7Request = $psr7Request->withAttribute(self::SYMFONY_REQUEST, $request);
 
         $psr7Response = $this->httpMiddleware->process($psr7Request, new class implements RequestHandlerInterface {
-            public function handle(ServerRequestInterface $request)
+            public function handle(ServerRequestInterface $request): ResponseInterface
             {
                 return new TextResponse("bypass", 418);
             }

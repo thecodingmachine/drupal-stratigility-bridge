@@ -11,7 +11,7 @@ services:
     calls:
      - [raiseThrowables, []]
     tags:
-     - { name: service_collector, tag: http_interop_middleware, call: pipeMiddleware }
+     - { name: service_collector, tag: psr15_middleware, call: pipeMiddleware }
 
   request_handler:
     class:     Drupal\stratigility_bridge\RequestHandler
