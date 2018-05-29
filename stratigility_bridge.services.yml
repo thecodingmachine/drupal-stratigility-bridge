@@ -7,11 +7,11 @@ services:
     class:      Drupal\stratigility_bridge\HtmlResponseStack
 
   stratigility_pipe:
-    class:     Drupal\stratigility_bridge\MiddlewarePipe
+    class:     Zend\Stratigility\MiddlewarePipe
     calls:
      - [raiseThrowables, []]
     tags:
-     - { name: service_collector, tag: http_interop_middleware, call: pipeMiddleware }
+     - { name: service_collector, tag: psr15_middleware, call: pipe }
 
   request_handler:
     class:     Drupal\stratigility_bridge\RequestHandler

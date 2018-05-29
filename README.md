@@ -7,9 +7,10 @@ Bridges between [Drupal 8](https://www.drupal.org/8) and PSR-15 middleware modul
 [![Total Downloads](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/downloads)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
 [![Latest Unstable Version](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/v/unstable)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
 [![License](https://poser.pugx.org/thecodingmachine/drupal-stratigility-bridge/license)](https://packagist.org/packages/thecodingmachine/drupal-stratigility-bridge)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/badges/quality-score.png?b=0.4)](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/?branch=0.4)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/badges/quality-score.png?b=1.0)](https://scrutinizer-ci.com/g/thecodingmachine/drupal-stratigility-bridge/?branch=1.0)
 
-> This bridge is currently based on http-interop v0.4. As this is not yet approved by PHP-FIG, this might be subject to change!
+> Version 1.0 allows you to use PSR-15 middlewares in Drupal 8.
+> Versions 0.x are bridges with the now deprecated http-interop middlewares.
 
 ## Installation
 
@@ -27,7 +28,7 @@ This module will fill the Drupal container with a new `stratigility_pipe` entry 
 
 You can extend this entry in your own module to register a new middleware.
 
-In Drupal services, you can simply add the `http_interop_middleware` to your middleware service. This will automatically register the middleware in Stratigility's pipe.
+In Drupal services, you can simply add the `psr15_middleware` to your middleware service. This will automatically register the middleware in Stratigility's pipe.
 
 So your `MYMODULE.services.yml` will certainly look like this:
 
@@ -36,7 +37,7 @@ services:
   my_middleware:
     class:      Acme\MyMiddleware
     tags:
-      - { name: http_interop_middleware }
+      - { name: psr15_middleware }
 ```
 
 ## Using Drupal render arrays in PSR-15 middlewares
@@ -60,7 +61,7 @@ class HelloWorldMiddleware implements MiddlewareInterface
         $this->arrayRenderCaller = $arrayRenderCaller;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $delegate)
     {
         if (trim($request->getUri()->getPath(), '/') === 'foo') {
             // Let's render a drupal page
